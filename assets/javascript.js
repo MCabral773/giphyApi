@@ -1,5 +1,9 @@
-$("button").on("click", function () {
+var characters = ["Michael Scott", "Dwight Schrute", "Jim Halpert", "Pam Halpert"]
+
+$("button").on("click", function displayGifs () {
     console.log(this)
+    var gifButton = $("<button>");
+    gifButton.addClass("character");
     var person = $(this).attr("data-person");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
     person + "&api_key=EtOsqBhZrXCdR6Pt07tb9IHTx6XC6iIP";
@@ -27,4 +31,19 @@ $("button").on("click", function () {
         $("#gifs-appear-here").prepend(gifDiv);
     }
     });
+
+    $(document).on("click", "#character", displayGifs);
+    $(document).on("click", "#buttons", function () {
+    var state = $(this).attr("data-state");
+    if (state == "still"){
+        $(this).attr("src", $(this).data("animate"));
+        $(this).attr("data-state", "animate");
+
+    } else {
+        $(this).attr("src", $(this).data("still"));
+        $(this).attr("data-state", "still");
+    }
+    }
+);
 });
+
